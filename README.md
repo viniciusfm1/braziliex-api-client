@@ -1,2 +1,2 @@
 # braziliex-api-client
-Módulo python para conexão com a API da exchange Braziliex
+Script python para conexão com a API da exchange Braziliex
