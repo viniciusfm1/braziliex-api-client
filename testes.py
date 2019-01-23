@@ -5,6 +5,7 @@ exchange = Braziliex('ltc_brl')
 
 ticker = exchange.ticker()
 orders = exchange.orders()
+trades = exchange.trades()
 
 print('# TICKER #------------------------------')
 if ticker['active'] == 1:
@@ -13,6 +14,6 @@ if ticker['active'] == 1:
     print('compra            :',ticker['highestBid'])
     print('venda             :',ticker['lowestAsk'])
 
-print (orders)
+print (trades)
 
 
