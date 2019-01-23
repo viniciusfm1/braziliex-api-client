@@ -8,7 +8,6 @@ Vinícius Machado <viniciusfm1@outlook.com>
 """
 
 import requests
-import datetime
 
 class Braziliex:
     def __init__(self, par):
