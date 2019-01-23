@@ -23,9 +23,16 @@ class Braziliex:
         return response.json()
 
     def orders(self, method = 'orderbook'):
+        
         """Used to get retrieve the orderbook for a given market."""
+
         response = requests.get(self.url.format(method = method, param = self.par))
         return response.json()
 
-    def trades(self):
+    def trades(self, method = 'tradehistory'):
+        """Used to get retrieve the last trades."""
+        response = requests.get(self.url.format(method = method, param = self.par))
+        return response.json()
+
+    def balance(self):
         pass
