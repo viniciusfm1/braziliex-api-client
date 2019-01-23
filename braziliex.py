@@ -25,7 +25,7 @@ class Braziliex:
     def orders(self, method = 'orderbook'):
         """Used to get retrieve the orderbook for a given market."""
         response = requests.get(self.url.format(method = method, param = self.par))
-        return response.url
+        return response.json()
 
     def trades(self):
         pass
