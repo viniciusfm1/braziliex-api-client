@@ -17,13 +17,15 @@ class Braziliex:
     
     def ticker(self, method = 'ticker'):
         
-        """ Used to get the current tick values for a market."""
+        """Used to get the current tick values for a market."""
 
         response = requests.get(self.url.format(method = method, param = self.par))
         return response.json()
 
-    def orders(self):
-        pass
+    def orders(self, method = 'orderbook'):
+        """Used to get retrieve the orderbook for a given market."""
+        response = requests.get(self.url.format(method = method, param = self.par))
+        return response.url
 
     def trades(self):
         pass
