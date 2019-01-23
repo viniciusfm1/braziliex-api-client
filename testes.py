@@ -4,6 +4,7 @@ import datetime
 exchange = Braziliex('ltc_brl')
 
 ticker = exchange.ticker()
+orders = exchange.orders()
 
 print('# TICKER #------------------------------')
 if ticker['active'] == 1:
@@ -11,3 +12,7 @@ if ticker['active'] == 1:
     print('volume 24h        :',ticker['baseVolume24'])
     print('compra            :',ticker['highestBid'])
     print('venda             :',ticker['lowestAsk'])
+
+print (orders)
+
+
