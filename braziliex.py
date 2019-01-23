@@ -21,3 +21,9 @@ class Braziliex:
 
         response = requests.get(self.url.format(method = method, param = self.par))
         return response.json()
+
+    def orders(self):
+        pass
+
+    def trades(self):
+        pass
