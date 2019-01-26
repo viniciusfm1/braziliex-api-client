@@ -8,11 +8,18 @@ Vinícius Machado <viniciusfm1@outlook.com>
 """
 
 import requests
+import hmac
+import hashlib
+import urllib
+from time import time
 
 class Braziliex:
-    def __init__(self, par):
+    def __init__(self, par, key, secret):
         self.par = par
         self.url = 'https://braziliex.com/api/v1/public/{method}/{param}'
+        self.key = key
+        self.secret = secret
+        self.privateUrl  = 'https://braziliex.com/api/v1/private'
     
     def ticker(self, method = 'ticker'):
         
@@ -33,5 +40,13 @@ class Braziliex:
         response = requests.get(self.url.format(method = method, param = self.par))
         return response.json()
 
-    def balance(self):
-        pass
+    def balance(self, command='balance'):      
+
+        """Returns all of your balances, including available balance, balance on orders, 
+        and the estimated BTC value of your balance."""
+
+        data = urllib.parse.urlencode({'command': command, 'nonce': int(time() * 1000)}).encode('utf-8')
+        sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
+        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
+        r = requests.post(self.privateUrl, data = data, headers = headers)
+        return r.json()
