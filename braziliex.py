@@ -48,5 +48,5 @@ class Braziliex:
         data = urllib.parse.urlencode({'command': command, 'nonce': int(time() * 1000)}).encode('utf-8')
         sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
         headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
-        r = requests.post(self.privateUrl, data = data, headers = headers)
-        return r.json()
+        response = requests.post(self.privateUrl, data = data, headers = headers)
+        return response.json()
