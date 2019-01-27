@@ -51,6 +51,16 @@ class Braziliex:
         response = requests.post(self.privateUrl, data = data, headers = headers)
         return response.json()
 
+    def createOrder(self, command, amount, price):
+        
+        """Places a buy/sell order in a given market"""
+
+        data = urllib.parse.urlencode({'command': command, 'amount': amount, 'price': price, market: self.par, 'nonce': int(time() * 1000)}).encode('utf-8')
+        sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
+        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
+        response = requests.post(self.privateUrl, data = data, headers = headers)
+        return response.json()
+
     def buy(self, amount, price):
         
         """Places a buy order in a given market."""
@@ -60,6 +70,6 @@ class Braziliex:
         headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
         response = requests.post(self.privateUrl, data = data, headers = headers)
         return response.json()
-        
+
     def sell(self):
         pass
