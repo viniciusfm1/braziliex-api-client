@@ -65,3 +65,7 @@ class Braziliex:
         """Places a buy/sell order in a given market"""
         data = {'command': command, 'amount': amount, 'price': price, 'market': self.market}
         return self.post(data)
+    
+    def cancelOrder(self, order_number):
+        data = {'command': 'cancel_order', 'order_number': order_number, 'market': self.market}
+        return self.post(data)
