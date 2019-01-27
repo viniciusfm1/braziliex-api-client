@@ -14,11 +14,11 @@ import urllib
 from time import time
 
 class Braziliex:
-    def __init__(self, par, key, secret):
-        self.par = par
+    def __init__(self, market, key, secret):
+        self.par = market
         self.key = key
         self.secret = secret
-        self.market = par
+        self.market = market
         self.privateUrl  = 'https://braziliex.com/api/v1/private'
         self.publicUrl = 'https://braziliex.com/api/v1/public/{command}/{market}'
     
