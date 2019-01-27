@@ -21,6 +21,9 @@ class Braziliex:
         self.secret = secret
         self.privateUrl  = 'https://braziliex.com/api/v1/private'
     
+    def depositAddress(self):
+        pass
+
     def ticker(self, method = 'ticker'):
         
         """Used to get the current tick values for a market."""
@@ -72,4 +75,11 @@ class Braziliex:
         return response.json()
 
     def sell(self):
-        pass
+        
+        """Places a sell order in a given market."""
+
+        data = urllib.parse.urlencode({'command': 'sell', 'amount': amount, 'price': price, market: self.par, 'nonce': int(time() * 1000)}).encode('utf-8')
+        sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
+        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
+        response = requests.post(self.privateUrl, data = data, headers = headers)
+        return response.json()
