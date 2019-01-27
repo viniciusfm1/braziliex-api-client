@@ -15,7 +15,6 @@ from time import time
 
 class Braziliex:
     def __init__(self, market, key, secret):
-        self.par = market
         self.key = key
         self.secret = secret
         self.market = market
