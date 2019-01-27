@@ -22,7 +22,14 @@ class Braziliex:
         self.privateUrl  = 'https://braziliex.com/api/v1/private'
     
     def depositAddress(self):
-        pass
+        
+        """Used to get a deposit address by market."""
+
+        data = urllib.parse.urlencode({'command': 'deposit_address', 'currency': str(self.par.split('_',1)[0]), 'nonce': int(time() * 1000)}).encode('utf-8')
+        sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
+        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
+        response = requests.post(self.privateUrl, data = data, headers = headers)
+        return response.json()
 
     def ticker(self, method = 'ticker'):
         
