@@ -16,9 +16,9 @@ from time import time
 class Braziliex:
     def __init__(self, par, key, secret):
         self.par = par
-        self.url = 'https://braziliex.com/api/v1/public/{method}/{param}'
         self.key = key
         self.secret = secret
+        self.market = par
         self.privateUrl  = 'https://braziliex.com/api/v1/private'
         self.publicUrl = 'https://braziliex.com/api/v1/public/{command}/{market}'
     
@@ -31,7 +31,7 @@ class Braziliex:
         return response.json()
 
     def get(self, command):
-        response = requests.get(self.publicUrl.format(command = command, market = self.par))
+        response = requests.get(self.publicUrl.format(command = command, market = self.market))
         return response.json()
 
     def balance(self):      
@@ -43,13 +43,11 @@ class Braziliex:
 
     def depositAddress(self):
         """Used to get a deposit address by market."""
-        
         data = {'command': 'deposit_address'}
         return self.post(data)
 
     def ticker(self):
         """Used to get the current tick values for a market."""
-        
         command = 'ticker'
         return self.get(command)
 
@@ -64,31 +62,6 @@ class Braziliex:
         return self.get(command)
 
     def createOrder(self, command, amount, price):
-        
         """Places a buy/sell order in a given market"""
-
-        data = urllib.parse.urlencode({'command': command, 'amount': amount, 'price': price, market: self.par, 'nonce': int(time() * 1000)}).encode('utf-8')
-        sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
-        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
-        response = requests.post(self.privateUrl, data = data, headers = headers)
-        return response.json()
-
-    def buy(self, amount, price):
-        
-        """Places a buy order in a given market."""
-        
-        data = urllib.parse.urlencode({'command': 'buy', 'amount': amount, 'price': price, market: self.par, 'nonce': int(time() * 1000)}).encode('utf-8')
-        sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
-        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
-        response = requests.post(self.privateUrl, data = data, headers = headers)
-        return response.json()
-
-    def sell(self):
-        
-        """Places a sell order in a given market."""
-
-        data = urllib.parse.urlencode({'command': 'sell', 'amount': amount, 'price': price, market: self.par, 'nonce': int(time() * 1000)}).encode('utf-8')
-        sign = hmac.new(str.encode(self.secret, 'utf-8'), data, digestmod = hashlib.sha512).hexdigest()
-        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Sign': sign, 'Key': self.key}
-        response = requests.post(self.privateUrl, data = data, headers = headers)
-        return response.json()
+        data = {'command': command, 'amount': amount, 'price': price, 'market': self.market}
+        return self.post(data)
