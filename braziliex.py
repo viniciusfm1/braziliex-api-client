@@ -20,6 +20,7 @@ class Braziliex:
         self.key = key
         self.secret = secret
         self.privateUrl  = 'https://braziliex.com/api/v1/private'
+        self.publicUrl = 'https://braziliex.com/api/v1/public/{command}/{market}'
     
     def post(self, data):
         data['nonce'] = int(time() * 1000)
@@ -29,8 +30,9 @@ class Braziliex:
         response = requests.post(self.privateUrl, data = data, headers = headers)
         return response.json()
 
-    def get(self):
-        pass
+    def get(self, command):
+        response = requests.get(self.publicUrl.format(command = command, market = self.par))
+        return response.json()
 
     def balance(self):      
         """Returns all of your balances, including available balance, balance on orders, 
@@ -45,24 +47,21 @@ class Braziliex:
         data = {'command': 'deposit_address'}
         return self.post(data)
 
-    def ticker(self, method = 'ticker'):
-        
+    def ticker(self):
         """Used to get the current tick values for a market."""
-
-        response = requests.get(self.url.format(method = method, param = self.par))
-        return response.json()
-
-    def orders(self, method = 'orderbook'):
         
+        command = 'ticker'
+        return self.get(command)
+
+    def orders(self):
         """Used to get retrieve the orderbook for a given market."""
+        command = 'orderbook'
+        return self.get(command)
 
-        response = requests.get(self.url.format(method = method, param = self.par))
-        return response.json()
-
-    def trades(self, method = 'tradehistory'):
+    def trades(self):
         """Used to get retrieve the last trades."""
-        response = requests.get(self.url.format(method = method, param = self.par))
-        return response.json()
+        command = 'tradehistory'
+        return self.get(command)
 
     def createOrder(self, command, amount, price):
         
