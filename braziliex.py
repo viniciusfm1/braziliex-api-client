@@ -73,6 +73,8 @@ class Braziliex:
         return self.post(data)
     
     def cancelOrder(self, order_number):
+        """Cancels an order you have placed in a given market."""
+
         data = {'command': 'cancel_order', 'order_number': order_number, 'market': self.market}
         return self.post(data)
 
