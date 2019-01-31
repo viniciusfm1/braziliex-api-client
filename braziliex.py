@@ -75,3 +75,17 @@ class Braziliex:
     def cancelOrder(self, order_number):
         data = {'command': 'cancel_order', 'order_number': order_number, 'market': self.market}
         return self.post(data)
+
+    def userOrders(self):
+        """Returns your open orders for a given market, 
+        specified by the "market" POST parameter, example: "ltc_btc""""
+
+        data = {'command':'open_orders', 'market': self.market}
+        return self.post(data)
+
+    def history(self):
+        """"Returns your trade history for a given market, 
+        specified by the "market" POST parameter."""
+
+        data = {'command': 'trade_history', 'market': self.market}
+        return self.post(data)
