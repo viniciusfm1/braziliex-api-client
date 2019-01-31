@@ -40,6 +40,13 @@ class Braziliex:
         data = {'command': 'balance'}
         return self.post(data)
 
+    def completeBalance(self):
+        """Returns all of your balances, including available balance, 
+        balance on orders, and the estimated BTC value of your balance."""
+
+        data = {'command': 'complete_balance'}
+        return self.post(data)
+
     def depositAddress(self):
         """Used to get a deposit address by market."""
         data = {'command': 'deposit_address'}
