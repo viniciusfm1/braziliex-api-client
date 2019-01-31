@@ -11,7 +11,6 @@ import requests
 import hmac
 import hashlib
 import urllib
-from time import time
 
 class Braziliex:
     def __init__(self, market, key, secret):
