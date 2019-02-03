@@ -39,14 +39,14 @@ class Braziliex:
         data = {'command': 'balance'}
         return self.post(data)
 
-    def completeBalance(self):
+    def complete_balance(self):
         """Returns all of your balances, including available balance, 
         balance on orders, and the estimated BTC value of your balance."""
 
         data = {'command': 'complete_balance'}
         return self.post(data)
 
-    def depositAddress(self):
+    def deposit_address(self):
         """Used to get a deposit address by market."""
         data = {'command': 'deposit_address'}
         return self.post(data)
@@ -66,18 +66,18 @@ class Braziliex:
         command = 'tradehistory'
         return self.get(command)
 
-    def createOrder(self, command, amount, price):
+    def create_order(self, command, amount, price):
         """Places a buy/sell order in a given market"""
         data = {'command': command, 'amount': amount, 'price': price, 'market': self.market}
         return self.post(data)
     
-    def cancelOrder(self, order_number):
+    def cancel_order(self, order_number):
         """Cancels an order you have placed in a given market."""
 
         data = {'command': 'cancel_order', 'order_number': order_number, 'market': self.market}
         return self.post(data)
 
-    def userOrders(self):
+    def user_orders(self):
         """Returns your open orders for a given market, 
         specified by the "market" POST parameter, example: "ltc_btc""""
 
