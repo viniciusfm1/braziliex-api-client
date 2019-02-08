@@ -30,6 +30,7 @@ class Braziliex:
 
     def get(self, command):
         response = requests.get(self.publicUrl.format(command = command, market = self.market))
+        response.close()
         return response.json()
 
     def balance(self):      
