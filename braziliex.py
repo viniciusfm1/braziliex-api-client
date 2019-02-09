@@ -80,7 +80,7 @@ class Braziliex:
 
     def user_orders(self):
         """Returns your open orders for a given market, 
-        specified by the "market" POST parameter, example: "ltc_btc""""
+        specified by the "market" POST parameter, example: ltc_btc"""
 
         data = {'command':'open_orders', 'market': self.market}
         return self.post(data)
