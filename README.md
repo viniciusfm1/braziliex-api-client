@@ -5,4 +5,5 @@ Script python para conexão com a API da exchange [Braziliex](https://braziliex.
 ![](https://img.shields.io/github/issues/viniciusfm1/braziliex-api-client.svg)
 
 ## Referências
+- [Braziliex](https://braziliex.com/)
 - [API](https://braziliex.com/exchange/api.php)
