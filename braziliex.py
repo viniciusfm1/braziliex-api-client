@@ -11,6 +11,7 @@ import requests
 import hmac
 import hashlib
 import urllib
+from time import time
 
 class Braziliex:
     def __init__(self, market, key, secret):
@@ -47,9 +48,9 @@ class Braziliex:
         data = {'command': 'complete_balance'}
         return self.post(data)
 
-    def deposit_address(self):
+    def deposit_address(self, currency):
         """Used to get a deposit address by market."""
-        data = {'command': 'deposit_address'}
+        data = {'command': 'deposit_address', 'currency': currency}
         return self.post(data)
 
     def ticker(self):
